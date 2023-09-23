@@ -3,20 +3,19 @@
 
 ## For Dagshub:
 
-MLFLOW_TRACKING_URI=https://dagshub.com/entbappy/MLflow-Basic-Demo.mlflow \
-MLFLOW_TRACKING_USERNAME=spcCodes \
-MLFLOW_TRACKING_PASSWORD=6824692c47a369aa6f9eac5b10041d5c8edbcef0 \
+MLFLOW_TRACKING_URI=https://dagshub.com/gvsmaneesha/mlflowtutorial.mlflow \
+MLFLOW_TRACKING_USERNAME=gvsmaneesha \
+MLFLOW_TRACKING_PASSWORD=b1c1342e35773597804166f7dd5e80de9bb92f1e \
 python script.py
-
 
 
 ```bash
 
-export MLFLOW_TRACKING_URI=https://dagshub.com/entbappy/MLflow-Basic-Demo.mlflow
+export MLFLOW_TRACKING_URI=https://dagshub.com/gvsmaneesha/mlflowtutorial.mlflow
 
-export MLFLOW_TRACKING_USERNAME=entbappy 
+export MLFLOW_TRACKING_USERNAME=gvsmaneesha 
 
-export MLFLOW_TRACKING_PASSWORD=6824692c47a369aa6f9eac5b10041d5c8edbcef0
+export MLFLOW_TRACKING_PASSWORD=b1c1342e35773597804166f7dd5e80de9bb92f1e
 
 
 ```
@@ -68,6 +67,6 @@ mlflow server -h 0.0.0.0 --default-artifact-root s3://mlflow-23
 
 
 #set uri in your local terminal and in your code 
-export MLFLOW_TRACKING_URI=http://ec2-174-129-109-191.compute-1.amazonaws.com:5000/
+export MLFLOW_TRACKING_URI=ec2-54-254-222-233.ap-southeast-1.compute.amazonaws.com:5000/
 ```
 
