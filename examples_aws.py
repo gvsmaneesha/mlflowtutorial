@@ -6,13 +6,11 @@ import logging
 import sys
 import warnings
 from urllib.parse import urlparse
-
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import ElasticNet
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
-
 import mlflow
 import mlflow.sklearn
 from mlflow.models import infer_signature
@@ -49,40 +47,24 @@ if __name__ == "__main__":
     with mlflow.start_run():
         lr = ElasticNet(alpha=alpha, l1_ratio=l1_ratio, random_state=42)
         lr.fit(train_x, train_y)
-
         predicted_qualities = lr.predict(test_x)
-
         (rmse, mae, r2) = eval_metrics(test_y, predicted_qualities)
-
         print(f"Elasticnet model (alpha={alpha:f}, l1_ratio={l1_ratio:f}):")
         print(f"  RMSE: {rmse}")
         print(f"  MAE: {mae}")
         print(f"  R2: {r2}")
-
         mlflow.log_param("alpha", alpha)
         mlflow.log_param("l1_ratio", l1_ratio)
         mlflow.log_metric("rmse", rmse)
         mlflow.log_metric("r2", r2)
         mlflow.log_metric("mae", mae)
-
-        # For remote server only (AWS)
         remote_server_uri = "http://ec2-54-254-222-233.ap-southeast-1.compute.amazonaws.com:5000/"
         mlflow.set_tracking_uri(remote_server_uri)
-
-
         tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
-
-        # Model registry does not work with file store
         if tracking_url_type_store != "file":
-            # Register the model
-            # There are other ways to use the Model Registry, which depends on the use case,
-            # please refer to the doc for more information:
-            # https://mlflow.org/docs/latest/model-registry.html#api-workflow
-            mlflow.sklearn.log_model(
-                lr, "model", registered_model_name="ElasticnetWineModel")
+            mlflow.sklearn.log_model(lr, "model", registered_model_name="ElasticnetWineModel")
         else:
-            mlflow.sklearn.log_model(lr, "model")
-            
+            mlflow.sklearn.log_model(lr, "model") 
         mlflow.set_tag("tag1", "Base Elasticnet")
         mlflow.set_tag("tag2", "Base Elasticnet aplha 0.5")
         
